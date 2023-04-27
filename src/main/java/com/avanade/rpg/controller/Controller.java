@@ -25,37 +25,37 @@ public class Controller {
 	private CadastroBatalhas cadastroBatalhas;
 
 	@PostMapping( "/personagens" )
-	@ApiOperation( "Cadastra um novo Personagem" )
+	@ApiOperation( "Cadastrar Novo Personagem" )
 	public ResponseEntity< Personagem > create( @RequestBody Personagem personagem ) {
 		return new ResponseEntity<>( cadastroPersonagens.create( personagem ), HttpStatus.CREATED );
 	}
 
 	@PutMapping( "/personagens" )
-	@ApiOperation( "Atualiza o Personagem" )
+	@ApiOperation( "Atualizar Personagem" )
 	public ResponseEntity< Personagem > update( @RequestBody Personagem personagem ) {
 		return new ResponseEntity<>( cadastroPersonagens.update( personagem ), HttpStatus.OK );
 	}
 
 	@GetMapping( "/personagens" )
-	@ApiOperation( "Gera uma lista com todos os Personagens" )
+	@ApiOperation( "Gerar lista com todos os Personagens Cadastrados" )
 	public ResponseEntity< List<Personagem>  > getAll( ) {
 		return new ResponseEntity<>(cadastroPersonagens.findAll( ), HttpStatus.OK );
 	}
 	@GetMapping( "/personagens/{id}" )
-	@ApiOperation( "Busca o Personagem pelo ID" )
+	@ApiOperation( "Pesquisar Personagem pelo ID" )
 	public ResponseEntity< Personagem > getById( @PathVariable( value = "id" ) Integer id ) {
 		return new ResponseEntity<>( cadastroPersonagens.findById( id ), HttpStatus.OK );
 	}
 
-	@DeleteMapping( "/personagens" )
-	@ApiOperation( "Exclui o Personagem" )
+	@DeleteMapping( "/personagens/{id}" )
+	@ApiOperation( "Excluir Personagem pelo ID" )
 	public ResponseEntity< HttpStatus > update( @RequestHeader Integer id ) {
 		cadastroPersonagens.delete( id );
 		return new ResponseEntity<>( HttpStatus.NO_CONTENT );
 	}
 
 	@GetMapping( "/personagem/ataque/{id}" )
-	@ApiOperation( "Lista Atributos de Ataque do Personagem por ID" )
+	@ApiOperation( "Listar Atributos de Ataque do Personagem por ID" )
 	public ResponseEntity< String > ataque( @PathVariable( value = "id" ) Integer id) {
 		Personagem byId = cadastroPersonagens.findById(id);
 
@@ -73,7 +73,7 @@ public class Controller {
 	}
 
 	@GetMapping( "/personagem/defesa/{id}" )
-	@ApiOperation( "Lista Atributos de Defesa do Personagem por ID" )
+	@ApiOperation( "Listar Atributos de Defesa do Personagem por ID" )
 	public ResponseEntity< String > defesa( @PathVariable( value = "id" ) Integer id) {
 		Personagem byId = cadastroPersonagens.findById(id);
 
@@ -91,7 +91,7 @@ public class Controller {
 	}
 
 	@GetMapping( "/personagem/danos/{id}" )
-	@ApiOperation( "Lista Atributos de Danos do Personagem por ID" )
+	@ApiOperation( "Listar Atributos de Danos do Personagem por ID" )
 	public ResponseEntity< String > danos( @PathVariable( value = "id" ) Integer id) {
 		Personagem byId = cadastroPersonagens.findById(id);
 
@@ -109,17 +109,25 @@ public class Controller {
 	}
 
 	@PutMapping( "/batalha" )
-	@ApiOperation( "Play a Game!" )
+	@ApiOperation( "Jogar!" )
 	public ResponseEntity< Batalhas > playGame( @RequestBody Batalhas batalhas ) {
 		cadastroBatalhas.update(batalhas);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@GetMapping( "/batalha" )
-	@ApiOperation( "Gera uma lista com todas as Batalhas" )
+	@ApiOperation( "Gerar uma lista com todas as Batalhas" )
 	public ResponseEntity< List<Batalhas>  > getAllBatalhas( ) {
 		return new ResponseEntity<>(cadastroBatalhas.findAll( ), HttpStatus.OK );
 	}
+
+	@GetMapping( "/batalha/{batalha}" )
+	@ApiOperation( "Listar Histórico da Batalha pelo Código da Batalha" )
+	public ResponseEntity <List <Batalhas> > getByIdBatalha( @PathVariable Integer batalha ) {
+		return ResponseEntity.ok( cadastroBatalhas.findByIdBatalha( batalha ));
+	}
+
+
 }
 
 

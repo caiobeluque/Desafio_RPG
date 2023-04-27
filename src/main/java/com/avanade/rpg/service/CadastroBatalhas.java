@@ -24,6 +24,13 @@ public class CadastroBatalhas {
         return repositorioBatalhas.findAll();
     }
 
+    public List<Batalhas> findByIdBatalha( Integer batalha ) {
+
+        final List<Batalhas> batalhas = repositorioBatalhas.findAllByBatalha(batalha);
+        return batalhas;
+
+    }
+
     public void update(Batalhas batalhas) {
 
         Optional<Personagem> personagem1 = repositorioPersonagens.findById(batalhas.getIdPersonagem1());
@@ -71,7 +78,7 @@ public class CadastroBatalhas {
         }
 ////
 
-        batalhas.setPartida(partida);
+        batalhas.setBatalha(partida);
         batalhas.setNomePersonagem1(personagem1.get().getNomePersonagem());
         batalhas.setNomePersonagem2(personagem2.get().getNomePersonagem());
         batalhas.setPontosVidaPersonagem1(personagem1.get().getVida());

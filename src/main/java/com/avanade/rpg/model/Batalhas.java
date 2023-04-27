@@ -20,8 +20,8 @@ public class Batalhas implements Serializable {
 
     @Column( name = "ID")
     private Integer  id;
-    @Column( name = "PARTIDA")
-    private Integer  Partida;
+    @Column( name = "BATALHA")
+    private Integer  batalha;
     @Column( name = "ID_PERSONAGEM1")
     private Integer  idPersonagem1;
     @Column( name = "NOME_PERSONAGEM1")
